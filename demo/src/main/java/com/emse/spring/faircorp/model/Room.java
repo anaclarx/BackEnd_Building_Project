@@ -28,16 +28,20 @@ public class Room {
     @OneToMany(mappedBy = "room")
     private List<Window> listOfWindows;
 
+    @ManyToOne
+    private Building building;
+
     public Room() {
     }
 
-    public Room(String name, Integer floor, Double currentTemp, Double targetTemp, List<Heater> listOfHeaters, List<Window> listOfWindows) {
+    public Room(String name, Integer floor, Double currentTemp, Double targetTemp, List<Heater> listOfHeaters, List<Window> listOfWindows, Building building) {
         this.name = name;
         this.floor = floor;
         this.currentTemp = currentTemp;
         this.targetTemp = targetTemp;
         this.listOfHeaters = listOfHeaters;
         this.listOfWindows = listOfWindows;
+        this.building= building;
     }
 
     public Long getId() {
@@ -95,4 +99,8 @@ public class Room {
     public void setListOfWindows(List<Window> listOfWindows){
         this.listOfWindows = listOfWindows;
     }
+
+    public Building getBuilding() { return building; }
+
+    public void setBuilding(Building building) { this.building = building; }
 }
