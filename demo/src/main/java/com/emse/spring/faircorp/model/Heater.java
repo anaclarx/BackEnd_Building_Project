@@ -67,11 +67,11 @@ public class Heater {
         this.room = room;
     }
 
-    public HeaterStatus getWindowStatus() {
+    public HeaterStatus getHeaterStatus() {
         return heaterStatus;
     }
 
-    public void setWindowStatus(HeaterStatus heaterStatus) {
+    public void setHeaterStatus(HeaterStatus heaterStatus) {
         this.heaterStatus = heaterStatus;
     }
 }

@@ -34,7 +34,7 @@ public class Room {
     public Room() {
     }
 
-    public Room(String name, Integer floor, Double currentTemp, Double targetTemp, List<Heater> listOfHeaters, List<Window> listOfWindows, Building building) {
+    public Room(String name, Integer floor, Double currentTemp, Double targetTemp, Building building, List<Heater> listOfHeaters, List<Window> listOfWindows) {
         this.name = name;
         this.floor = floor;
         this.currentTemp = currentTemp;
@@ -76,11 +76,11 @@ public class Room {
         this.currentTemp = currentTemp;
     }
 
-    public Double getTargetTempTemp(){
+    public Double getTargetTemp(){
         return targetTemp;
     }
 
-    public void setTargetTempTemp(Double targetTempTemp){
+    public void setTargetTemp(Double targetTempTemp){
         this.targetTemp = currentTemp;
     }
 

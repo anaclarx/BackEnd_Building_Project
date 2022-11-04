@@ -15,6 +15,6 @@ public interface HeaterDao extends JpaRepository <Heater, Long> {
 
     @Modifying
     @Query("delete from Heater c where room_id=:room_id")
-    void deleteByRoom(String room);
+    void deleteByRoom(Long room_id);
 
 }
