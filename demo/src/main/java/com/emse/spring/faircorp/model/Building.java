@@ -16,9 +16,8 @@ public class Building {
     @OneToMany(mappedBy = "building")
     private List<Room> listOfRooms;
 
-    public Building(String name, List<Room> listOfRooms){
+    public Building(String name){
         this.name = name;
-        this.listOfRooms = listOfRooms;
     }
 
     public Building(){}
