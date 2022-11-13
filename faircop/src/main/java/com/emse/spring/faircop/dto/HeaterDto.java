@@ -3,30 +3,27 @@ package com.emse.spring.faircop.dto;
 import com.emse.spring.faircop.model.Heater;
 import com.emse.spring.faircop.model.HeaterStatus;
 
+import java.util.List;
+
 public class HeaterDto {
     private Long id;
     private String name;
+    private HeaterStatus heaterStatus;
+    private Long power;
+    private String roomName;
     private Long roomId;
 
-    private Long heaterPower;
-    private HeaterStatus heaterStatus;
+    public HeaterDto(List<Heater> heaters){}
 
-    public HeaterDto(){
-
-    }
     public HeaterDto(Heater heater){
-        this.id=heater.getId();
-        this.name=heater.getName();
-        this.heaterStatus=heater.getHeaterStatus();
-        this.heaterPower = heater.getPower();
-        this.roomId=heater.getRoom().getId();
+        this.id = heater.getId();
+        this.name = heater.getName();
+        this.heaterStatus = heater.getHeaterStatus();
+        this.power = heater.getPower();
+        this.roomId = heater.getRoom().getId();
+        this.roomName = heater.getRoom().getName();
     }
 
-
-
-
-
-    //Getters and setters
     public Long getId() {
         return id;
     }
@@ -43,27 +40,36 @@ public class HeaterDto {
         this.name = name;
     }
 
-    public Long getRoom() {
-        return roomId;
-    }
-
-    public void setRoom(Long id) {
-        this.roomId = id;
-    }
-
-    public Long getHeaterPower(){
-        return heaterPower;
-    }
-
-    public void setHeaterPower(){
-        this.heaterPower = heaterPower;
-    }
-
-    public HeaterStatus getHeater_status() {
+    public HeaterStatus getHeaterStatus() {
         return heaterStatus;
     }
 
-    public void setHeater_status(HeaterStatus heaterStatus) {
+    public void setHeaterStatus(HeaterStatus heaterStatus) {
         this.heaterStatus = heaterStatus;
     }
+
+    public Long getPower() {
+        return power;
+    }
+
+    public void setPower(Long power) {
+        this.power = power;
+    }
+
+    public Long getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(Long roomId) {
+        this.roomId = roomId;
+    }
+
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
+    }
+
 }

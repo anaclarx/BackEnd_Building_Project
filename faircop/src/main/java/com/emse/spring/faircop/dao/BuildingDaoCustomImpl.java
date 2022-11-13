@@ -13,16 +13,28 @@ public class BuildingDaoCustomImpl implements BuildingDaoCustom {
     private EntityManager em;
 
     @Override
-    public List<Heater> findBuildingHeaters(Long id){
-        String jpql="select h from Heater h where h.room.building.id=:id";
+    public List<Window> findAllWindows(Long id){
+        String jpql ="select w from Window w where w.room.building.id = :id";
+        return em.createQuery(jpql, Window.class)
+                .setParameter("id", id)
+                .getResultList();
+    }
+    @Override
+    public List<Heater> findAllHeaters(Long id){
+        String jpql ="select h from Heater h where h.room.building.id = :id";
         return em.createQuery(jpql, Heater.class)
                 .setParameter("id", id)
                 .getResultList();
     }
-    public List<Window> findBuildingWindows(Long id){
-        String jpql="select w from Window w where w.room.building.id=:id";
-        return em.createQuery(jpql, Window.class)
-                .setParameter("id", id)
-                .getResultList();
+
+
+    @Override
+    public void deleteByBuildingId(Long building_id){
+
+        String jpqlb = "delete from Building b where id=:id";
+        em.createQuery(jpqlb)
+                .setParameter("id", building_id)
+                .executeUpdate();
+
     }
 }

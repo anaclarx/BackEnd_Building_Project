@@ -39,32 +39,18 @@ public class RoomController {
     public void delete(@PathVariable Long id){
         roomDao.deleteById(id);
     }
-    @PutMapping(path = "/{id}/switchWindow")
-    public RoomDto switchWindow(@PathVariable Long id) {
-        Room room = roomDao.findById(id).orElseThrow(IllegalArgumentException::new);
-        for (Window window:room.getListOfWindows())
-            window.setWindowStatus(window.getWindowStatus() == WindowStatus.OPEN ? WindowStatus.CLOSED: WindowStatus.OPEN);
 
-        return new RoomDto(room);
-    }
-
-    @PutMapping(path = "/{id}/switchHeater")
-    public RoomDto switchHeater(@PathVariable Long id) {
-        Room room = roomDao.findById(id).orElseThrow(IllegalArgumentException::new);
-        for (Heater heater:room.getListOfHeaters())
-            heater.setHeaterStatus(heater.getHeaterStatus() == HeaterStatus.ON ? HeaterStatus.OFF: HeaterStatus.ON);
-
-        return new RoomDto(room);
-    }
-
-    //Create room
     @PostMapping
     public RoomDto create(@RequestBody RoomDto dto) {
-
-        Room room = null;
+        // RoomDto must always contain the room building
         Building building = buildingDao.getReferenceById(dto.getBuildingId());
-        room = roomDao.save(new Room(dto.getName(), dto.getFloor(), dto.getCurrentTemp(), dto.getTargetTemp(),building, dto.getListOfHeaters(), dto.getListOfWindows()));
-
+        Room room = null;
+        // On creation id is not defined
+        if (dto.getId() == null) {
+            room = roomDao.save(new Room(dto.getFloor(), dto.getName(), building, dto.getCurrent_temperature(), dto.getTarget_temperature() ));
+        } else {
+            room = roomDao.getById(dto.getId());  // (9)
+        }
         return new RoomDto(room);
     }
 
@@ -72,7 +58,7 @@ public class RoomController {
     @PutMapping(path = "/{id}")
     public RoomDto updateTargetTemperature(@PathVariable Long id, @RequestBody RoomDto dto) {
         Room room = roomDao.findById(id).orElseThrow(IllegalArgumentException::new);
-        room.setTargetTemp(dto.getTargetTemp());
+        room.setTargetTemp(dto.getTarget_temperature());
 
         return new RoomDto(room);
     }

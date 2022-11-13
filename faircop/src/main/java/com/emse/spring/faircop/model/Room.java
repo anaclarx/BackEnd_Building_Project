@@ -1,5 +1,8 @@
 package com.emse.spring.faircop.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -29,18 +32,23 @@ public class Room {
     private List<Window> listOfWindows;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Building building;
 
-    public Room() {
-    }
 
-    public Room(String name, Integer floor, Double currentTemp, Double targetTemp, Building building, List<Heater> listOfHeaters, List<Window> listOfWindows) {
-        this.name = name;
+
+    public Room( Integer floor, String name,Building building) {
         this.floor = floor;
+        this.name = name;
+        this.building = building;
+    }
+    public Room(){}
+
+    public Room(Integer floor, String name, Building building, Double currentTemp, Double targetTemp) {
+        this.floor = floor;
+        this.name = name;
         this.currentTemp = currentTemp;
         this.targetTemp = targetTemp;
-        this.listOfHeaters = listOfHeaters;
-        this.listOfWindows = listOfWindows;
         this.building = building;
     }
 

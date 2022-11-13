@@ -8,11 +8,10 @@ import org.springframework.data.repository.query.Param;
 
 public interface WindowDao extends JpaRepository<Window, Long>, WindowDaoCustom {
 
-    @Query("select c from Window c where c.id=:id")
-    Window getById(@Param("id") Long id);
-
+    @Query("select c from Window c where c.name=:name")
+    Window findByName(@Param("name") String name);
     @Modifying
-    @Query("delete from Window c where room_id =:room_id")
-    void deleteByRoom(@Param("room_id") long room_id);
+    @Query("delete from Window w where w.room.id = :roomID")
+    void deleteByRoom(@Param("roomID") Long roomId);
 
 }

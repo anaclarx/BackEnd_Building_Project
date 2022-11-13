@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
-@RequestMapping(" /api/buildings")
+@RequestMapping("/api/buildings")
 @Transactional
 public class BuildingController {
 
@@ -33,27 +33,21 @@ public class BuildingController {
         return buildingDao.findById(id).map(BuildingDto::new).orElse(null);
     }
 
-    @DeleteMapping(path = "/{id}")
-    public void delete(@PathVariable Long id){
-        buildingDao.deleteById(id);
-    }
-    @PostMapping
-    public BuildingDto create(@RequestBody BuildingDto dto){
+    @PostMapping // (8)
+    public BuildingDto create(@RequestBody BuildingDto dto) {
+        // On creation id is not defined
         Building building = null;
-        building = buildingDao.save(new Building(dto.getName()));
+        if (dto.getId() == null) {
+            building = buildingDao.save(new Building(dto.getName()));
+        } else {
+            building = buildingDao.getReferenceById(dto.getId());  // (9)
+        }
         return new BuildingDto(building);
     }
 
-    @GetMapping(path = " /{id}/windows")
-    public List<WindowDto> findBuildingWindows(@PathVariable Long id){
-        List<Window> windows=buildingDao.findBuildingWindows(id);
-        return windows.stream().map(WindowDto::new).collect(Collectors.toList());
-    }
-
-    @GetMapping(path = " /{id}/heaters")
-    public List<HeaterDto> findBuildingHeaters(@PathVariable Long id){
-        List<Heater> heaters=buildingDao.findBuildingHeaters(id);
-        return heaters.stream().map(HeaterDto::new).collect(Collectors.toList());
+    @DeleteMapping(path = "/{building_id}")
+    public void delete(@PathVariable Long building_id) {
+        buildingDao.deleteByBuildingId(building_id);
     }
 
 }

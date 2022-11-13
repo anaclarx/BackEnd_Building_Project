@@ -7,59 +7,73 @@ import com.emse.spring.faircop.model.Window;
 import java.util.List;
 
 public class RoomDto {
-
     private Long id;
     private String name;
-    private Double currentTemp;
-    private Double targetTemp;
-    private List<Heater> listOfHeaters;
-    private List<Window> listOfWindows;
+    private Integer floor;
+    private Double current_temperature;
+    private Double target_temperature;
+
     private Long buildingId;
-    private int floor;
 
-    public RoomDto(){}
 
-    public RoomDto (Room room){
-        this.id = room.getId();
-        this.name = room.getName();
-        this.currentTemp= room.getCurrentTemp();
-        this.targetTemp= room.getTargetTemp();
-        this.buildingId=room.getBuilding().getId();
-        this.floor= room.getFloor();
-        this.listOfHeaters = room.getListOfHeaters();
-        this.listOfWindows = room.getListOfWindows();
+    public RoomDto() {
     }
 
-    public Long getId() {return id;}
+    public RoomDto(Room room) {
+        this.id = room.getId();
+        this.name = room.getName();
+        this.floor = room.getFloor();
+        this.current_temperature = room.getCurrentTemp();
+        this.target_temperature = room.getTargetTemp();
+        this.buildingId = room.getBuilding().getId();
+    }
 
-    public void setId(Long id) {this.id = id;}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getName() {return name;}
+    public Long getId() {
+        return id;
+    }
 
-    public void setName(String name) {this.name = name;}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public Double getCurrentTemp() {return currentTemp;}
+    public String getName() {
+        return name;
+    }
 
-    public void setCurrentTemp(Double currentTemp) {this.currentTemp = currentTemp;}
+    public Integer getFloor() {
+        return floor;
+    }
 
-    public Double getTargetTemp() {return targetTemp;}
+    public void setFloor(Integer floor) {
+        this.floor = floor;
+    }
 
-    public void setTargetTemp(Double targetTemp) {this.targetTemp = targetTemp;}
+    public Double getCurrent_temperature() {
+        return current_temperature;
+    }
 
-    public Long getBuildingId() {return buildingId;}
+    public void setCurrent_temperature(Double current_temperature) {
+        this.current_temperature = current_temperature;
+    }
 
-    public void setBuildingId(Long buildingId) {this.buildingId = buildingId;}
+    public Double getTarget_temperature() {
+        return target_temperature;
+    }
 
-    public int getFloor() {return floor;}
+    public void setTarget_temperature(Double target_temperature) {
+        this.target_temperature = target_temperature;
+    }
 
-    public void setFloor(int floor) {this.floor = floor;}
+    public Long getBuildingId() {
+        return buildingId;
+    }
 
-    public List<Window> getListOfWindows(){return listOfWindows;}
-
-    public void setListOfWindows(List<Window> listOfWindows){this.listOfWindows=listOfWindows;}
-
-    public List<Heater> getListOfHeaters(){return listOfHeaters;}
-
-    public void setListOfHeaters(List<Heater> listOfHeaters){this.listOfHeaters=listOfHeaters;}
-
+    public void setBuildingId(Long buildingId) {
+        this.buildingId = buildingId;
+    }
 }
+

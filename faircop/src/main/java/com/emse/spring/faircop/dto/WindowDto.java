@@ -3,6 +3,8 @@ package com.emse.spring.faircop.dto;
 import com.emse.spring.faircop.model.Window;
 import com.emse.spring.faircop.model.WindowStatus;
 
+import java.util.List;
+
 public class WindowDto {
     private Long id;
     private String name;
@@ -11,6 +13,9 @@ public class WindowDto {
     private Long roomId;
 
     public WindowDto() {
+    }
+
+    public WindowDto(List<Window> windows) {
     }
 
     public WindowDto(Window window) {

@@ -6,5 +6,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface RoomDaoCustom {
-    List<Window> findRoomWindows(@Param("id") Long id);
+    List<Window> findRoomWindows(Long id);
+
+    void deleteRoom(Long room_id);
 }

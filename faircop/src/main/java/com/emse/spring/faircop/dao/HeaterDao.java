@@ -8,11 +8,11 @@ import org.springframework.data.repository.query.Param;
 
 public interface HeaterDao extends JpaRepository<Heater, Long> {
 
-    @Query("Select c from Heater c where c.id=:id")
-    Heater getById(@Param("id")Long id);
+    @Query("select h from Heater h where h.name =: name")
+    Heater findByName(@Param("name")String name);
 
     @Modifying
-    @Query("delete from Heater c where room_id=:room_id")
-    void deleteByRoom(Long room_id);
+    @Query("delete from Heater h where h.room.id =: id")
+    void deleteByRoom(Long id);
 
 }

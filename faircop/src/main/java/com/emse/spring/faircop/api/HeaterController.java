@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
-@RequestMapping(" /api/heaters")
+@RequestMapping("/api/heaters")
 @Transactional
 
 public class HeaterController {
@@ -49,14 +49,14 @@ public class HeaterController {
 
     @PostMapping
     public HeaterDto create(@RequestBody HeaterDto dto){
-        Room room = roomDao.getById(dto.getId());
+        Room room = roomDao.getReferenceById(dto.getId());
         Heater heater = null;
         if(dto.getId() == null){
-            heater = heaterDao.save(new Heater(dto.getName(), dto.getHeaterPower(), room, dto.getHeater_status()));
+            heater =heaterDao.save(new Heater(dto.getName(),dto.getPower(), dto.getHeaterStatus(), room));
         }
         else{
-            heater = heaterDao.getById(dto.getId());
-            heater.setHeaterStatus(dto.getHeater_status());
+            heater = heaterDao.getReferenceById(dto.getId());
+            heater.setHeaterStatus(dto.getHeaterStatus());
         }
         return new HeaterDto(heater);
     }
