@@ -32,7 +32,7 @@ public class HeaterController {
         return heaterDao.findAll().stream().map(HeaterDto::new).collect(Collectors.toList());
     }
 
-    @GetMapping(path = "/{id")
+    @GetMapping(path = "/{id}")
     public HeaterDto findById(@PathVariable Long id){return heaterDao.findById(id).map(HeaterDto::new).orElse(null);}
 
     @DeleteMapping(path = "/{id}")

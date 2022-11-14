@@ -14,14 +14,14 @@ public class Heater {
     @Column(nullable=false, length=255)
     private String name;
 
-    @Column(nullable=false, length=255)
-    private Long power;
-
     @ManyToOne(optional = false)
     private Room room;
 
+    @Column(nullable = true)
+    private Long power;
+
     // (5)
-    @Column(nullable=false, length=255)
+    @Column(nullable=false)
     @Enumerated(EnumType.STRING)
     private HeaterStatus heaterStatus;
 
@@ -57,14 +57,6 @@ public class Heater {
         this.name = name;
     }
 
-    public Long getPower(){
-        return power;
-    }
-
-    public void setPower(Long power){
-        this.power = power;
-    }
-
     public Room getRoom(){
         return room;
     }
@@ -79,5 +71,13 @@ public class Heater {
 
     public void setHeaterStatus(HeaterStatus heaterStatus) {
         this.heaterStatus = heaterStatus;
+    }
+
+    public Long getPower() {
+        return power;
+    }
+
+    public void setPower(Long power) {
+        this.power = power;
     }
 }

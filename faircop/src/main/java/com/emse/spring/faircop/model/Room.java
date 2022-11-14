@@ -5,37 +5,36 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "ROOM")
 public class Room {
-    // (3)
+
     @Id
     @GeneratedValue
     private Long id;
 
-    // (4)
-    @Column(nullable = false, length = 255)
-    private String name;
-
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false)
     private Integer floor;
 
-    private Double currentTemp;
+    @Column(nullable = false)
+    private String name;
 
-    private Double targetTemp;
+    @Column
+    private Double currentTemperature;
+
+    @Column
+    private Double targetTemperature;
 
     @OneToMany(mappedBy = "room")
-    private List<Heater> listOfHeaters;
+    private Set<Heater> heater;
 
     @OneToMany(mappedBy = "room")
-    private List<Window> listOfWindows;
+    private Set<Window> windows;
 
-    @ManyToOne
+    @ManyToOne //child of Building
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Building building;
-
-
+    private Building building ;//define building
 
     public Room( Integer floor, String name,Building building) {
         this.floor = floor;
@@ -44,20 +43,19 @@ public class Room {
     }
     public Room(){}
 
-    public Room(Integer floor, String name, Building building, Double currentTemp, Double targetTemp) {
+    public Room(Integer floor, String name, Building building, Double currentTemperature, Double targetTemperature) {
         this.floor = floor;
         this.name = name;
-        this.currentTemp = currentTemp;
-        this.targetTemp = targetTemp;
+        this.currentTemperature = currentTemperature;
+        this.targetTemperature = targetTemperature;
         this.building = building;
     }
 
-    public Long getId() {
-        return this.id;
+    public Double getCurrentTemperature() {
+        return currentTemperature;
     }
-
-    public void setId(Long id) {
-        this.id = id;
+    public Double getTargetTemperature() {
+        return currentTemperature;
     }
 
     public String getName() {
@@ -68,51 +66,33 @@ public class Room {
         this.name = name;
     }
 
-    public Integer getFloor() {
-        return floor;
+    public Set<Window> getWindows() { return windows;}
+
+    public Long getId() {
+        return this.id;
     }
 
-    public void setPower(Integer floor) {
-        this.floor = floor;
+
+
+
+
+    public void setBuilding(Building building) {
+        this.building = building;
     }
 
-    public Double getCurrentTemp() {
-        return currentTemp;
+    public void setTargetTemperature(Double targetTemperature) {
+        this.targetTemperature = targetTemperature;
     }
 
-    public void setCurrentTemp(Double currentTemp) {
-        this.currentTemp = currentTemp;
-    }
-
-    public Double getTargetTemp() {
-        return targetTemp;
-    }
-
-    public void setTargetTemp(Double targetTempTemp) {
-        this.targetTemp = currentTemp;
-    }
-
-    public List<Heater> getListOfHeaters() {
-        return listOfHeaters;
-    }
-
-    public void setListOfHeaters(List<Heater> listOfHeaters) {
-        this.listOfHeaters = listOfHeaters;
-    }
-
-    public List<Window> getListOfWindows() {
-        return listOfWindows;
-    }
-
-    public void setListOfWindows(List<Window> listOfWindows) {
-        this.listOfWindows = listOfWindows;
+    public void setCurrentTemperature(Double currentTemperature) {
+        this.currentTemperature = currentTemperature;
     }
 
     public Building getBuilding() {
         return building;
     }
 
-    public void setBuilding(Building building) {
-        this.building = building;
+    public Integer getFloor() {
+        return floor;
     }
 }
