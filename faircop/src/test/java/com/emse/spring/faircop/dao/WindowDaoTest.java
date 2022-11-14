@@ -3,6 +3,7 @@ package com.emse.spring.faircop.dao;
 import com.emse.spring.faircop.model.Window;
 import com.emse.spring.faircop.model.WindowStatus;
 import org.assertj.core.api.Assertions;
+import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,16 @@ class WindowDaoTest {
         Assertions.assertThat(window.getName()).isEqualTo("Window 1");
         Assertions.assertThat(window.getWindowStatus()).isEqualTo(WindowStatus.CLOSED);
 
+    }
+
+
+    @Test
+    public void shouldFindRoomOpenWindows() {
+        List<Window> result = windowDao.findByOpenWindow(-9L);
+        Assertions.assertThat(result)
+                .hasSize(1)
+                .extracting("id", "windowStatus")
+                .containsExactly(Tuple.tuple(-8L, WindowStatus.OPEN));
     }
 
     @Test
