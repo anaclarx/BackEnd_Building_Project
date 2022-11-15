@@ -1,0 +1,9 @@
+{
+  "build": {
+    "type": "gradle",
+    "goal": "assemble"
+  },
+  "deploy": {
+    "jarName": "./faircop/build/libs/faircop-0.0.1-SNAPSHOT.jar"
+  }
+}
