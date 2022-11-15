@@ -12,6 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 
+@ExtendWith(SpringExtension.class)
 @DataJpaTest
 class WindowDaoTest {
 
