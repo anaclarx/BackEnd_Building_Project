@@ -42,10 +42,8 @@ public class RoomController {
 
     @PostMapping
     public RoomDto create(@RequestBody RoomDto dto) {
-        // RoomDto must always contain the room building
         Building building = buildingDao.getReferenceById(dto.getBuildingId());
         Room room = null;
-        // On creation id is not defined
         if (dto.getId() == null) {
             room = roomDao.save(new Room(dto.getFloor(), dto.getName(), building, dto.getCurrent_temperature(), dto.getTarget_temperature() ));
         } else {
@@ -54,7 +52,6 @@ public class RoomController {
         return new RoomDto(room);
     }
 
-    //Update a room target temperature
     @PutMapping(path = "/{id}")
     public RoomDto updateTargetTemperature(@PathVariable Long id, @RequestBody RoomDto dto) {
         Room room = roomDao.findById(id).orElseThrow(IllegalArgumentException::new);
@@ -63,7 +60,6 @@ public class RoomController {
         return new RoomDto(room);
     }
 
-    //find rooms in a building identified with its id
     @GetMapping(path="/{id}/windows")
     public List<WindowDto> findRoomWindows(@PathVariable Long id) {
         List<Window> windows= roomDao.findRoomWindows(id);

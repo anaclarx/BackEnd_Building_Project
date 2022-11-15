@@ -12,12 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/user")
 public class SecurityController {
     @Secured("ROLE_ADMIN")
-    @GetMapping(path = "/{id}")
-    public String findUserName(@AuthenticationPrincipal UserDetails userDetails) {
-        return userDetails.getUsername();
-    }
-
-    @Secured("ROLE_ADMIN")
     @GetMapping
     public ResponseEntity<String> findAll(@AuthenticationPrincipal UserDetails userDetails) {
         return ResponseEntity.ok(userDetails.getUsername());

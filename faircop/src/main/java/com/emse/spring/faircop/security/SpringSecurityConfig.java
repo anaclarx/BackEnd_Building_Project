@@ -17,9 +17,6 @@ public class SpringSecurityConfig {
     private static final String ROLE_ADMIN = "ADMIN";
 
 
-
-
-
     @Bean
     public UserDetailsService userDetailsService() {
         // We create a password encoder
@@ -29,7 +26,7 @@ public class SpringSecurityConfig {
                 User.withUsername("user").password(encoder.encode("password")).roles(ROLE_USER).build()
         );
         manager.createUser(
-                User.withUsername("admin").password(encoder.encode("admin")).roles(ROLE_USER,ROLE_ADMIN).build()
+                User.withUsername("admin").password(encoder.encode("admin")).roles(ROLE_ADMIN).build()
         );
         return manager;
     }
@@ -47,9 +44,21 @@ public class SpringSecurityConfig {
 
 
     @Bean
+    @Order(2)
     public SecurityFilterChain filterChainMain(HttpSecurity http) throws Exception {
         return http
                 .authorizeRequests(authorize -> authorize.anyRequest().hasAnyRole(ROLE_USER,ROLE_ADMIN) )
+                .formLogin(withDefaults())
+                .httpBasic(withDefaults())
+                .build();
+    }
+
+    @Bean
+    @Order(3)
+    public SecurityFilterChain filterChainAdmin(HttpSecurity http) throws Exception {
+        return http
+                .antMatcher("/api/users/**")
+                .authorizeRequests(authorize -> authorize.anyRequest().hasRole("ADMIN"))
                 .formLogin(withDefaults())
                 .httpBasic(withDefaults())
                 .build();
