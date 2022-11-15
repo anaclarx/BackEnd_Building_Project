@@ -2,7 +2,6 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.5'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
-	id 'jacoco-report-aggregation'
 }
 
 group = 'com.emse.spring'
@@ -27,15 +26,4 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
-}
-
-jar{
-	manifest{
-		attributes 'sources': 'test.java.com.emse.spring.faircop'
-	}
-}
-task javadocJar(type: Jar, dependsOn: javadoc) {
-	group = 'Documentation'
-	archiveClassifier = 'javadoc'
-	from javadoc.destinationDir
 }
